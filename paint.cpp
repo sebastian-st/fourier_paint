@@ -101,16 +101,18 @@ void redresh_drawing(drawing_settings *data)
 	string button_str = "Start over";
 	if (data->button_pressed)
 	{
-		canvas(data->button) = Scalar::all(0.6);
-		putText(canvas(data->button), button_str, Point(data->button.width*0.35, data->button.height*0.7), FONT_HERSHEY_SIMPLEX, 0.7, Scalar::all(0.5), 2, 16);
-		putText(canvas(data->button), button_str, Point(data->button.width*0.35, data->button.height*0.7), FONT_HERSHEY_SIMPLEX, 0.7, Scalar::all(0), 1, 16);
+		Mat button_area = canvas(data->button);
+		button_area = Scalar::all(0.6);
+		putText(button_area, button_str, Point(data->button.width*0.35, data->button.height*0.7), FONT_HERSHEY_SIMPLEX, 0.7, Scalar::all(0.5), 2, 16);
+		putText(button_area, button_str, Point(data->button.width*0.35, data->button.height*0.7), FONT_HERSHEY_SIMPLEX, 0.7, Scalar::all(0), 1, 16);
 
 	}
 	else
 	{
-		canvas(data->button) = Scalar::all(0.8);
-		putText(canvas(data->button), button_str, Point(data->button.width*0.35, data->button.height*0.7), FONT_HERSHEY_SIMPLEX, 0.7, Scalar::all(0.7), 2, 16);
-		putText(canvas(data->button), button_str, Point(data->button.width*0.35, data->button.height*0.7), FONT_HERSHEY_SIMPLEX, 0.7, Scalar::all(0), 1, 16);
+		Mat button_area = canvas(data->button);
+		button_area = Scalar::all(0.8);
+		putText(button_area, button_str, Point(data->button.width*0.35, data->button.height*0.7), FONT_HERSHEY_SIMPLEX, 0.7, Scalar::all(0.7), 2, 16);
+		putText(button_area, button_str, Point(data->button.width*0.35, data->button.height*0.7), FONT_HERSHEY_SIMPLEX, 0.7, Scalar::all(0), 1, 16);
 	}
 	
 
@@ -132,7 +134,7 @@ void mouse_callback_canvas(int event, int x, int y, int, void* screen_data)
 		Point prev_coord(screen->prev_x, screen->prev_y);
 		Point new_coord(x,y);
 		line(screen->input_img, prev_coord, new_coord, Scalar::all(0), 2);
-	
+		redresh_drawing(screen);	
 	}
 
 	// On mouse up: Disable dragging mode and finally update trackbar slider
@@ -152,12 +154,12 @@ void mouse_callback_canvas(int event, int x, int y, int, void* screen_data)
 			screen->button_pressed = true;
 			screen->input_img = Mat::ones(screen->input_img.rows, screen->input_img.cols, CV_32FC1);
 		}
+		redresh_drawing(screen);
 	}
 
 	// Update mouse coordinate and refresh drawing
 	screen->prev_x = x;
 	screen->prev_y = y;
-	redresh_drawing(screen);
 
 }
 
