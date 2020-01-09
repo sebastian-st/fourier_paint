@@ -1,5 +1,5 @@
 # fourier_paint
-Very small C++ code to paint simple drawings, while showing the Fourier transform of it in real time
+Very small C++ code to paint simple drawings, while showing the Fourier transform of it in real time next to it
 
 # Requirements
 Only requirement: The OpenCV image processing library (>= 2)
